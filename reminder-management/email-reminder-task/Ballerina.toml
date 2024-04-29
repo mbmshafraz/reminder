@@ -1,6 +1,6 @@
 [package]
 org = "MotileTech"
-name = "email__task"
+name = "email_task"
 version = "0.1.0"
 distribution = "2201.8.6"
 
