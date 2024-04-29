@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Reminder API
+  description: API for creating and managing reminders.
+  version: "1.0"
+paths:
+  /reminders:
+    get:
+      summary: List all reminders or filter by upcoming and/or email
+      parameters:
+        - in: query
+          name: upcoming
+          schema:
+            type: string
+          description: Filter by upcoming reminders
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Filter by email address
+      responses:
+        '200':
+          description: A list of reminders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reminder'
+    post:
+      summary: Create a new reminder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reminder'
+      responses:
+        '201':
+          description: The reminder was successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+  /reminders/{id}:
+    get:
+      summary: Get a single reminder by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Unique identifier of the reminder
+      responses:
+        '200':
+          description: Details of an reminder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+    put:
+      summary: Update an reminder
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Unique identifier of the reminder to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reminder'
+      responses:
+        '200':
+          description: The reminder was successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reminder'
+    delete:
+      summary: Delete an reminder
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Unique identifier of the reminder to delete
+      responses:
+        '200':
+          description: The reminder was successfully deleted
+components:
+  schemas:
+    Reminder:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        phoneNumber:
+          type: string
+          format: phone
+        reminderDate:
+          type: string
+          format: date-time
+        email:
+          type: string
+          format: email
+      required:
+        - name
+        - description
+        - phoneNumber
+        - email
+        - reminderDate
