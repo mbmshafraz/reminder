@@ -117,7 +117,6 @@ const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingReminderS
                 type="tel" // Suggests to browsers that this input should be treated as a telephone number
             />
             <TextField
-                select
                 label="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
