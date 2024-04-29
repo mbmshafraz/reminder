@@ -29,7 +29,7 @@ const LoginPage = () => {
                     }}
                 >
                     <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center' }}>
-                        Welcome to CareConnect
+                        Welcome to Reminder
                     </Typography>
                     <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, textAlign: 'center' }}>
                         Your gateway to health and wellness
