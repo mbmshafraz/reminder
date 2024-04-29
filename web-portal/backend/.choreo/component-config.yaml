@@ -20,7 +20,6 @@ spec:
       # This is only applicable to REST endpoint types.
       # The path should be relative to the Docker context.
       schemaFilePath: openapi.yaml
-  
   outbound:
     serviceReferences:
     - name: choreo:///mobiletech/reminder-management/cknbqd/8b1c3/v1.0/ORGANIZATION
@@ -34,3 +33,4 @@ spec:
         to: REMINDERS_OAUTH_CLIENT_SECRET
       - from: TokenURL
         to: REMINDERS_OAUTH_TOKEN_URL
+      
