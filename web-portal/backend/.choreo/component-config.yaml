@@ -23,7 +23,7 @@ spec:
   outbound:
     serviceReferences:
     - name: choreo:///mobiletech/reminder-management/cknbqd/8b1c3/v1.0/ORGANIZATION
-      connectionConfig: 01ef05fc-1c82-1b40-b1b4-a5b6b39e5da6
+      connectionConfig: 01ef0602-64a4-1d56-909e-28e6f12c5e01
       env:
       - from: ServiceURL
         to: REMINDER_SERVICE_URL 
