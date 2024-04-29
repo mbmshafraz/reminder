@@ -1,16 +1,16 @@
 import axios from 'axios';
 
 // Replace `APPOINTMENT_SERVICE_URL` with the actual URL of your appointments service
-const APPOINTMENT_SERVICE_URL = window.configs.apiUrl;
+const REMINDER_SERVICE_URL = window.configs.apiUrl;
 
-export const bookAppointment = async (appointmentDetails) => {
+export const scheduleReminder = async (reminderDetails) => {
   try {
-    const response = await fetch(`${APPOINTMENT_SERVICE_URL}/create-appointment`, {
+    const response = await fetch(`${REMINDER_SERVICE_URL}/create-reminder`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(appointmentDetails),
+      body: JSON.stringify(reminderDetails),
     });
 
     if (!response.ok) {
@@ -25,18 +25,18 @@ export const bookAppointment = async (appointmentDetails) => {
   }
 };
 
-export const getUpcomingAppointments = async (email) => {
+export const getScheduledReminders = async (email) => {
 
   try {
-    const response = await axios.get(`${APPOINTMENT_SERVICE_URL}/appointments`, {
+    const response = await axios.get(`${REMINDER_SERVICE_URL}/reminders`, {
       params: {
         email: email,
-        upcoming: 'true', // Assuming your backend supports this query parameter for filtering upcoming appointments
+        upcoming: 'true', // Assuming your backend supports this query parameter for filtering scheduled reminders
       }
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching upcoming appointments:', error);
+    console.error('Error fetching scheduled reminders:', error);
     throw error; // Rethrowing the error so it can be caught and handled in the component
   }
 };

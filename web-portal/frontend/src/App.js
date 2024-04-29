@@ -7,9 +7,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import theme from './theme';
 import LoginPage from './LoginPage';
-import BookingForm from './components/BookingForm';
+import SchedulingForm from './components/SchedulingForm';
 import ProtectedRoute from './ProtectedRoute'; // Import your ProtectedRoute component
-import UpcomingAppointments from './components/UpcomingAppointments';
+import ScheduledReminders from './components/ScheduledReminders';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ function App() {
     open: false,
     message: '',
   });
-  const [appointmentsRefreshKey, setAppointmentsRefreshKey] = useState(0);
+  const [remindersRefreshKey, setRemindersRefreshKey] = useState(0);
 
   useEffect(() => {
     let isUserInfoSet = false;
@@ -51,8 +51,8 @@ function App() {
     setLoading(false); // Set loading to false after authentication check is complete
   }, []);
 
-  const triggerAppointmentsRefresh = () => {
-    setAppointmentsRefreshKey(prevKey => prevKey + 1);
+  const triggerRemindersRefresh = () => {
+    setRemindersRefreshKey(prevKey => prevKey + 1);
   };
 
   const handleLogout = () => {
@@ -91,7 +91,7 @@ function App() {
           <AppBar position="static" color="primary">
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                CareConnect - Your Gateway to Health and Wellness
+                Reminder - Your persional assistant
               </Typography>
               {loggedIn && (
                 <IconButton color="inherit" onClick={handleLogout}>
@@ -109,9 +109,9 @@ function App() {
                     <Typography component="h1" variant="h5" style={{ marginBottom: 20 }}>
                       Welcome, {userDetails.name}
                     </Typography>
-                    <BookingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} onBookingSuccess={triggerAppointmentsRefresh} />
+                    <SchedulingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} onSchedulingSuccess={triggerRemindersRefresh} />
                     <Divider style={{ margin: '20px 0' }} />
-                    <UpcomingAppointments email={userDetails.email} triggerRefresh={appointmentsRefreshKey} />
+                    <ScheduledReminders email={userDetails.email} triggerRefresh={remindersRefreshKey} />
                   </Box>
                 </Container>
               } />

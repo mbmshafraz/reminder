@@ -1,27 +1,27 @@
-// components/BookingForm.js
+// components/SchedulingForm.js
 
 import React, { useState, useEffect } from 'react';
-import { services } from '../serviceData';
+// import { services } from '../serviceData';
 import { TextField, MenuItem, Button, CircularProgress } from '@mui/material';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { add, startOfDay } from 'date-fns';
-import { bookAppointment } from '../services/appointmentService';
+import { scheduleReminder } from '../services/reminderService';
 
-const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
-    const defaultAppointmentDate = add(startOfDay(new Date()), { days: 1, hours: 10 });
+const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingReminderSuccess }) => {
+    const defaultReminderDate = add(startOfDay(new Date()), { days: 1, hours: 10 });
 
     const [name, setName] = useState(userDetails.name || userDetails.username);
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [service, setService] = useState('');
-    const [appointmentDate, setAppointmentDate] = useState(defaultAppointmentDate);
+    const [description, setDescription] = useState('');
+    const [reminderDate, setReminderDate] = useState(defaultReminderDate);
     const [errors, setErrors] = useState({
         name: '',
         phoneNumber: '',
-        service: '',
-        appointmentDate: '',
+        description: '',
+        reminderDate: '',
     });
-    const [isBooking, setIsBooking] = useState(false);
+    const [isSchedulingReminder, setIsSchedulingReminder] = useState(false);
 
     // Effect to update state when userDetails changes
     useEffect(() => {
@@ -29,7 +29,7 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
     }, [userDetails]);
 
     const validateForm = () => {
-        let tempErrors = { name: '', service: '', appointmentDate: '', phoneNumber: '' };
+        let tempErrors = { name: '', description: '', reminderDate: '', phoneNumber: '' };
         let isValid = true;
 
         if (!name) {
@@ -37,13 +37,13 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
             isValid = false;
         }
 
-        if (!service) {
-            tempErrors.service = 'Please select a service.';
+        if (!description) {
+            tempErrors.description = 'Description is required.';
             isValid = false;
         }
 
-        if (!appointmentDate || new Date(appointmentDate) < new Date()) {
-            tempErrors.appointmentDate = 'Please select a future date and time.';
+        if (!reminderDate || new Date(reminderDate) < new Date()) {
+            tempErrors.reminderDate = 'Please select a future date and time.';
             isValid = false;
         }
 
@@ -65,31 +65,31 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        setIsBooking(true); // Start loading
+        setIsSchedulingReminder(true); // Start loading
 
-        const appointmentDetails = {
+        const reminderDetails = {
             name,
             phoneNumber,
-            service,
-            appointmentDate,
-            email: userDetails.email, // Include the email in your appointment details
+            description,
+            reminderDate,
+            email: userDetails.email, // Include the email in your remnder details
         };
 
         try {
-            await bookAppointment(appointmentDetails);
-            handleOpenSnackbar('Appointment booked successfully!');
+            await scheduleReminder(reminderDetails);
+            handleOpenSnackbar('Added reminder successfully!');
 
-            onBookingSuccess(); // Add this line. You need to pass this prop from App.js
+            onSchedulingReminderSuccess(); // Add this line. You need to pass this prop from App.js
 
             // Reset form fields
-            setService('');
-            setAppointmentDate(defaultAppointmentDate);
+            setDescription('');
+            setReminderDate(defaultReminderDate);
             setPhoneNumber('');
         } catch (error) {
-            console.error('Booking failed:', error);
-            handleOpenSnackbar('Failed to book the appointment. Please try again.');
+            console.error('Adding reminder failed:', error);
+            handleOpenSnackbar('Failed to add the reminder. Please try again.');
         } finally {
-            setIsBooking(false); // Stop loading regardless of the outcome
+            setIsSchedulingReminder(false); // Stop loading regardless of the outcome
         }
     };
 
@@ -118,40 +118,34 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
             />
             <TextField
                 select
-                label="Service"
-                value={service}
-                onChange={(e) => setService(e.target.value)}
-                error={!!errors.service}
-                helperText={errors.service}
+                label="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                error={!!errors.description}
+                helperText={errors.description}
                 fullWidth
                 margin="normal"
                 variant="outlined"
-            >
-                {services.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
-            </TextField>
+            />   
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker
-                    label="Appointment Date"
-                    value={appointmentDate}
-                    onChange={(newValue) => setAppointmentDate(newValue)}
+                    label="Reminder Date"
+                    value={reminderDate}
+                    onChange={(newValue) => setReminderDate(newValue)}
                     slotProps={{
                         textField: {
                             variant: 'outlined',
                             fullWidth: true,
                             margin: 'normal',
-                            error: !!errors.appointmentDate,
-                            helperText: errors.appointmentDate,
+                            error: !!errors.reminderDate,
+                            helperText: errors.reminderDate,
                         }
                     }}
                 />
             </LocalizationProvider>
-            <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 20, position: 'relative' }} disabled={isBooking}>
-                Book Appointment
-                {isBooking && (
+            <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 20, position: 'relative' }} disabled={isSchedulingReminder}>
+                Add Reminder
+                {isSchedulingReminder && (
                     <CircularProgress
                         size={24}
                         style={{
@@ -168,4 +162,4 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
     );
 };
 
-export default BookingForm;
+export default SchedulingForm;
