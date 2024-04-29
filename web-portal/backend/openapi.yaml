@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8080
     description: Development server
 paths:
-  /create-appointment:
+  /create-reminder:
     post:
       summary: Create a reminder
       description: Forwards the reminder creation request to the Reminder service with proper authentication.
@@ -28,7 +28,7 @@ paths:
           description: Authentication failed
         '500':
           description: Internal server error
-  /appointments:
+  /reminders:
     get:
       summary: Get reminder by email
       description: Fetches reminders for the given email. Supports filtering by the 'upcoming' query parameter.
@@ -64,7 +64,7 @@ paths:
           description: Internal server error
 components:
   schemas:
-    AppointmentRequest:
+    ReminderRequest:
       type: object
       properties:
         name:
@@ -90,7 +90,7 @@ components:
         - phoneNumber
         - reminderDate
         - email
-    AppointmentResponse:
+    ReminderResponse:
       type: object
       properties:
         id:
