@@ -32,7 +32,7 @@ const LoginPage = () => {
                         Welcome to Reminder
                     </Typography>
                     <Typography variant="subtitle1" gutterBottom sx={{ mb: 2, textAlign: 'center' }}>
-                        Your gateway to health and wellness
+                        Your personal assistant
                     </Typography>
                     <Button
                         variant="contained"
