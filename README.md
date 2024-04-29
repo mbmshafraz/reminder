@@ -1,2 +1,2 @@
-# todo-reminder
-To Do reminder
+# Reminder
+Reminder Application
