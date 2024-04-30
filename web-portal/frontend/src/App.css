@@ -82,6 +82,7 @@ div.task.done span:before {
 }
 
 div.checkbox {
+  height: 20px;
   display: flex;
   align-items: center;
 }
