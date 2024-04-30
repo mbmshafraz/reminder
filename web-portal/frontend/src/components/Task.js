@@ -1,6 +1,6 @@
 const Task = ({ task }) => { 
     return (<div className="task">
-        task.description
+        `${task.description}`
     </div>);
 };
 
