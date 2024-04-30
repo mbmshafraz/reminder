@@ -5,7 +5,7 @@ import {useState} from "react";
 export default function Task({name,done,onToggle,onTrash,onRename}) {
   const [editMode,setEditMode] = useState(false);
   return (
-    <div className={'task ' + (done?'done':'')}>
+    <div className={'task ' + (done?'done':'')} style = "display: flex; flex-wrap: wrap;">
       <Checkbox checked={done} onClick={() => onToggle(!done)} />
       {!editMode && (
         <div className="task-name" onClick={() => setEditMode(prev => !prev)}>
