@@ -62,12 +62,13 @@ app.post('/create-reminder', async (req, res) => {
                 'Authorization': `Bearer ${accessToken}`,
             },
         });
-        res.send("No exception");
+
         // Respond to the client with the Reminder service's response
-        // res.status(response.status).send(response.data);
+        res.status(response.status).send(response.data);
     } catch (error) {
         console.error('Error forwarding reminder creation request:', error);
-        res.status(error.response ? error.response.status : 500).send(error.message);
+        // res.status(error.response ? error.response.status : 500).send(error.message);
+        res.status(error.response ? error.response.status : 500).send(error);
     }
 });
 
