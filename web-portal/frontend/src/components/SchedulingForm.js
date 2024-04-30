@@ -87,7 +87,7 @@ const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingSuccess }
             setPhoneNumber('');
         } catch (error) {
             console.error('Adding reminder failed:', error);
-            // setDescription(error.message); // Remove Later
+            setDescription(error.message); // Remove Later
             handleOpenSnackbar('Failed to add the reminder. Please try again.');
         } finally {
             setIsSchedulingReminder(false); // Stop loading regardless of the outcome
