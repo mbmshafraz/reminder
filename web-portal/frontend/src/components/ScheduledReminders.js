@@ -72,6 +72,7 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
                     <ListItem key={index}>
                         <Task
                             name={reminder.description}
+                            done={reminder.done}
                             onRename={newName => renameTask(index, newName)}
                             onTrash={() => removeTask(index)}
                             onToggle={done => updateTaskDone(index, done)}
