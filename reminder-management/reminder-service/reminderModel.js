@@ -1,7 +1,7 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./database');
+import { DataTypes } from 'sequelize';
+import { define } from './database';
 
-const Reminder = sequelize.define('Reminder', {
+const Reminder = define('Reminder', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -29,4 +29,4 @@ const Reminder = sequelize.define('Reminder', {
   // Other model options go here
 });
 
-module.exports = Reminder;
+export default Reminder;
