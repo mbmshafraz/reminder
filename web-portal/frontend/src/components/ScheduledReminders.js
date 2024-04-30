@@ -12,35 +12,34 @@ import { format } from 'date-fns';
 // };
 
 const ScheduledReminders = ({ email, triggerRefresh }) => {
-    return (
+    const [reminders, setReminders] = useState([]);
+
+    const fetchReminders = async () => {
+        if (!email) return;
+
+        try {
+            const sheduledReminders = await getScheduledReminders(email);
+            setReminders(sheduledReminders);
+        } catch (error) {
+            console.error('Failed to fetch reminders:', error);
+            return (
             <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
-                `Email: ${email}`
+                'Failed to fetch reminders: {error}'
             </Typography>
         );
+        }
+    };
 
-    // const [reminders, setReminders] = useState([]);
-
-    // const fetchReminders = async () => {
-    //     if (!email) return;
-
-    //     try {
-    //         const sheduledReminders = await getScheduledReminders(email);
-    //         setReminders(sheduledReminders);
-    //     } catch (error) {
-    //         console.error('Failed to fetch reminders:', error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchReminders();
-    // }, [email, triggerRefresh]);
+    useEffect(() => {
+        fetchReminders();
+    }, [email, triggerRefresh]);
 
     // if (reminders.length === 0) {
-    //     return (
-    //         <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
-    //             No sheduled reminders. Take a moment to add one!
-    //         </Typography>
-    //     );
+        // return (
+        //     <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
+        //         No sheduled reminders. Take a moment to add one!
+        //     </Typography>
+        // );
     // }
 
     // return (
