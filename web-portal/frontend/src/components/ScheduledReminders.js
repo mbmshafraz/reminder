@@ -12,53 +12,59 @@ import { format } from 'date-fns';
 // };
 
 const ScheduledReminders = ({ email, triggerRefresh }) => {
-    const [reminders, setReminders] = useState([]);
-
-    const fetchReminders = async () => {
-        if (!email) return;
-
-        try {
-            const sheduledReminders = await getScheduledReminders(email);
-            setReminders(sheduledReminders);
-        } catch (error) {
-            console.error('Failed to fetch reminders:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchReminders();
-    }, [email, triggerRefresh]);
-
-    if (reminders.length === 0) {
-        return (
+    return (
             <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
-                No sheduled reminders. Take a moment to add one!
+                `Email: ${email}`
             </Typography>
         );
-    }
 
-    return (
-        <Paper elevation={3} style={{ marginTop: 20, padding: '20px' }}>
-            <Typography variant="h6" style={{ marginBottom: 10 }}>
-                Scheduled Reminders
-            </Typography>
-            <List>
-                {reminders.map((reminder, index) => (
-                    <ListItem key={index}>
-                        <ListItemAvatar>
-                            <Avatar>
-                                <CalendarTodayIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={reminder.description}
-                            secondary={`On ${format(new Date(reminder.reminderDate), 'MMMM d, yyyy, h:mm a')} for ${reminder.name}`}
-                        />
-                    </ListItem>
-                ))}
-            </List>
-        </Paper>
-    );
+    // const [reminders, setReminders] = useState([]);
+
+    // const fetchReminders = async () => {
+    //     if (!email) return;
+
+    //     try {
+    //         const sheduledReminders = await getScheduledReminders(email);
+    //         setReminders(sheduledReminders);
+    //     } catch (error) {
+    //         console.error('Failed to fetch reminders:', error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchReminders();
+    // }, [email, triggerRefresh]);
+
+    // if (reminders.length === 0) {
+    //     return (
+    //         <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
+    //             No sheduled reminders. Take a moment to add one!
+    //         </Typography>
+    //     );
+    // }
+
+    // return (
+    //     <Paper elevation={3} style={{ marginTop: 20, padding: '20px' }}>
+    //         <Typography variant="h6" style={{ marginBottom: 10 }}>
+    //             Scheduled Reminders
+    //         </Typography>
+    //         <List>
+    //             {reminders.map((reminder, index) => (
+    //                 <ListItem key={index}>
+    //                     <ListItemAvatar>
+    //                         <Avatar>
+    //                             <CalendarTodayIcon />
+    //                         </Avatar>
+    //                     </ListItemAvatar>
+    //                     <ListItemText
+    //                         primary={reminder.description}
+    //                         secondary={`On ${format(new Date(reminder.reminderDate), 'MMMM d, yyyy, h:mm a')} for ${reminder.name}`}
+    //                     />
+    //                 </ListItem>
+    //             ))}
+    //         </List>
+    //     </Paper>
+    // );
 };
 
 export default ScheduledReminders;
