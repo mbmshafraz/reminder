@@ -4,7 +4,7 @@ import { getScheduledReminders } from '../services/reminderService';
 import { List, ListItem, ListItemText, Typography, Paper, Avatar, ListItemAvatar, Box } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { format } from 'date-fns';
-import { TaskVidw } from './TaskView';
+import Task from './Task';
 
 // Convert service values to labels for display
 // const getServiceLabel = (serviceValue) => {
@@ -46,7 +46,7 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
             <List>
                 {reminders.map((reminder, index) => (
                     <ListItem key={index}>
-                        <TaskVidw task={reminder} />
+                        <Task task={reminder} />
                         {/* <ListItemAvatar>
                             <Avatar>
                                 <CalendarTodayIcon />
