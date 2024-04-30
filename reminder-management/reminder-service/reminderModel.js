@@ -25,6 +25,11 @@ const Reminder = sequelize.define('Reminder', {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  done: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  }
 }, {
   // Other model options go here
 });
