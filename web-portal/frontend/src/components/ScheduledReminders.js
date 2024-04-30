@@ -20,13 +20,13 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
         try {
             const sheduledReminders = await getScheduledReminders(email);
             setReminders(sheduledReminders);
-        } catch (error) {
-            console.error('Failed to fetch reminders:', error);
             return (
             <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
-                'Failed to fetch reminders: {error}'
+                'Scheduled Reminders: {sheduledReminders}'
             </Typography>
         );
+        } catch (error) {
+            console.error('Failed to fetch reminders:', error);
         }
     };
 
