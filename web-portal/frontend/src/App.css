@@ -86,6 +86,11 @@ div.checkbox {
   align-items: center;
 }
 
+div.checkbox svg {
+  height: 20px;
+  margin-right: 6px;
+}
+
 button.trash {
   background: none;
   border: none;
