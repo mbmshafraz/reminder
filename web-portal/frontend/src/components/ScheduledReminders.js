@@ -34,6 +34,7 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
         fetchReminders();
     }, [email, triggerRefresh]);
 
+    fetchReminders();
     // if (reminders.length === 0) {
         // return (
         //     <Typography variant="subtitle1" style={{ marginTop: 20, textAlign: 'center' }}>
