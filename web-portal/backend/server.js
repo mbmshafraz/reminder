@@ -68,7 +68,7 @@ app.post('/create-reminder', async (req, res) => {
     } catch (error) {
         console.error('Error forwarding reminder creation request:', error);
         // res.status(error.response ? error.response.status : 500).send(error.message);
-        res.status(error.response ? error.response.status : 500).send(error);
+        res.status(error.response ? error.response.status : 500).send(error.response.data);
     }
 });
 
