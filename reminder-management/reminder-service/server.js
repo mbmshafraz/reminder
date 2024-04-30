@@ -82,7 +82,7 @@ app.put('/reminders/:id', async (req, res) => {
     const { name, description, phoneNumber, email, reminderDate } = req.body;
 
     try {
-        const reminder = Reminder.findOne({ where: { id } });
+        const reminder = await Reminder.findOne({ where: { id } });
 
         if (!reminder) {
             return res.status(404).send({ message: 'Reminder not found'});
@@ -94,7 +94,7 @@ app.put('/reminders/:id', async (req, res) => {
         reminder.email = email;
         reminder.reminderDate = reminderDate;
 
-        // await reminder.save();
+        await reminder.save();
         res.status(200).send(reminder);
     } catch (error) {
         console.error('Error updating reminder:', error);
