@@ -67,29 +67,28 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
             <Typography variant="h6" style={{ marginBottom: 10 }}>
                 Scheduled Reminders
             </Typography>
-            <List>
-                {reminders.map((reminder, index) => (
-                    <ListItem key={index}>
-                        <Task
+            {/* <List> */}
+            {reminders.map((reminder, index) => (
+                    <Task
                             name={reminder.description}
                             done={reminder.done}
                             onRename={newName => renameTask(index, newName)}
                             onTrash={() => removeTask(index)}
                             onToggle={done => updateTaskDone(index, done)}
                         />
-                        {/* <Task task={reminder} /> */}
-                        {/* <ListItemAvatar>
-                            <Avatar>
-                                <CalendarTodayIcon />
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={reminder.description}
-                            secondary={`On ${format(new Date(reminder.reminderDate), 'MMMM d, yyyy, h:mm a')} for ${reminder.name}`}
-                        /> */}
-                    </ListItem>
+                    // <ListItem key={index}>
+                    //     <ListItemAvatar>
+                    //         <Avatar>
+                    //             <CalendarTodayIcon />
+                    //         </Avatar>
+                    //     </ListItemAvatar>
+                    //     <ListItemText
+                    //         primary={reminder.description}
+                    //         secondary={`On ${format(new Date(reminder.reminderDate), 'MMMM d, yyyy, h:mm a')} for ${reminder.name}`}
+                    //     />
+                    // </ListItem>
                 ))}
-            </List>
+            {/* </List> */}
         </Paper>
     );
 };
