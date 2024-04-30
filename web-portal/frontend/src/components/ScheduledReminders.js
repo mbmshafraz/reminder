@@ -26,6 +26,30 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
         }
     };
 
+    function renameTask(index, newName) {
+        reminders[index].description = newName;
+        //ToDO
+        //Submit the changes
+    }
+
+    function removeTask(indexToRemove) {
+        setReminders(prev => {
+            return prev.filter((taskObject, index) => index !== indexToRemove);
+        });
+        //ToDo
+        //Remove from database
+    }
+
+    function updateTaskDone(taskIndex, newDone) {
+        setReminders(prev => {
+            const newTasks = [...prev];
+            newTasks[taskIndex].done = newDone;
+            return newTasks;
+        });
+        //ToDO
+        //Submit the changes
+  }
+
     useEffect(() => {
         fetchReminders();
     }, [email, triggerRefresh]);
@@ -46,7 +70,13 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
             <List>
                 {reminders.map((reminder, index) => (
                     <ListItem key={index}>
-                        <Task task={reminder} />
+                        <Task
+                            name={reminder.description}
+                            onRename={newName => renameTask(index, newName)}
+                            onTrash={() => removeTask(index)}
+                            onToggle={done => updateTaskDone(index, done)}
+                        />
+                        {/* <Task task={reminder} /> */}
                         {/* <ListItemAvatar>
                             <Avatar>
                                 <CalendarTodayIcon />
