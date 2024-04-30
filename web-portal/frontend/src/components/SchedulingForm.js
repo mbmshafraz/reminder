@@ -8,7 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { add, startOfDay } from 'date-fns';
 import { scheduleReminder } from '../services/reminderService';
 
-const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingReminderSuccess }) => {
+const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingSuccess }) => {
     const defaultReminderDate = add(startOfDay(new Date()), { days: 1, hours: 10 });
 
     const [name, setName] = useState(userDetails.name || userDetails.username);
@@ -79,7 +79,7 @@ const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingReminderS
             await scheduleReminder(reminderDetails);
             handleOpenSnackbar('Added reminder successfully!');
 
-            onSchedulingReminderSuccess(); // Add this line. You need to pass this prop from App.js
+            onSchedulingSuccess(); // Add this line. You need to pass this prop from App.js
 
             // Reset form fields
             setDescription('');
@@ -88,7 +88,7 @@ const SchedulingForm = ({ userDetails, handleOpenSnackbar, onSchedulingReminderS
         } catch (error) {
             console.error('Adding reminder failed:', error);
             // setDescription(error.message); // Remove Later
-            // handleOpenSnackbar('Failed to add the reminder. Please try again.');
+            handleOpenSnackbar('Failed to add the reminder. Please try again.');
         } finally {
             setIsSchedulingReminder(false); // Stop loading regardless of the outcome
         }
