@@ -72,6 +72,31 @@ app.post('/create-reminder', async (req, res) => {
     }
 });
 
+app.put('/update-reminder', async (req, res) => {
+    try {
+        // Retrieve authentication details from environment variables
+        const accessToken = await getAccessToken(); // Use the new function here too
+
+        const reminderServiceUrl = process.env.REMINDER_SERVICE_URL;
+        if (!reminderServiceUrl) {
+            throw new Error('Reminder service URL is not defined in the environment variables');
+        }
+
+        const response = await axios.put(`${reminderServiceUrl}/reminders`, req.body, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        // Respond to the client with the Reminder service's response
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        console.error('Error forwarding reminder creation request:', error);
+        // res.status(error.response ? error.response.status : 500).send(error.message);
+        res.status(error.response ? error.response.status : 500).send(error.response.data);
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

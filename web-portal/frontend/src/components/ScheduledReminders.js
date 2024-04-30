@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getScheduledReminders } from '../services/reminderService';
+import { getScheduledReminders, putReminder } from '../services/reminderService';
 // import { services } from '../serviceData';
 import { List, ListItem, ListItemText, Typography, Paper, Avatar, ListItemAvatar, Box } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -26,18 +26,25 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
         }
     };
 
+    const updateReminder = async (reminder) => {
+        try {
+            await putReminder(reminder);
+        } catch (error) {
+            console.error('Failed to fetch reminders:', error);
+        }
+    };
+
     function renameTask(index, newName) {
         reminders[index].description = newName;
-        //ToDO
-        //Submit the changes
+        updateReminder(reminders[index])
     }
 
     function removeTask(indexToRemove) {
+        updateReminder(reminders[indexToRemove])
         setReminders(prev => {
             return prev.filter((taskObject, index) => index !== indexToRemove);
         });
-        //ToDo
-        //Remove from database
+        fetchReminders();
     }
 
     function updateTaskDone(taskIndex, newDone) {
@@ -46,8 +53,7 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
             newTasks[taskIndex].done = newDone;
             return newTasks;
         });
-        //ToDO
-        //Submit the changes
+        updateReminder(reminders[taskIndex])
   }
 
     useEffect(() => {
