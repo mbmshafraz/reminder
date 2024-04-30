@@ -14,7 +14,7 @@ export const scheduleReminder = async (reminderDetails) => {
     });
 
     if (!response.ok) {
-      const message = `An error has occurred: ${response.status} error: ${response.data}`;
+      const message = `An error has occurred: ${response.status}`;
       throw new Error(message);
     }
 
