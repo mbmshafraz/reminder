@@ -71,7 +71,7 @@ const ScheduledReminders = ({ email, triggerRefresh }) => {
     return (
         <Paper elevation={3} style={{ marginTop: 20, padding: '20px' }}>
             <Typography variant="h6" style={{ marginBottom: 10 }}>
-                Scheduled Reminders
+                Scheduled Tasks
             </Typography>
             {/* <List> */}
             {reminders.map((reminder, index) => (
